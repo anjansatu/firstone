@@ -1,40 +1,25 @@
-@extends('layouts.front')
+@extends('layouts.admin')
 @section('title', __('Admin Login'))
-
-@push('styles')
-<link rel="stylesheet" href="{{ asset('assets/css/auth.css') }}">
-@endpush
-
 @section('content')
-<div class="container">
-    <div class="form-container">
-        <h2 class="mb-4 text-center">{{ __('Admin Login') }}</h2>
-
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul class="mb-0">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-        <form method="POST" action="{{ url('/admin/login') }}">
-            @csrf
-            <div class="mb-3">
-                <label for="email" class="form-label">{{ __('Email') }}</label>
-                <input id="email" class="form-control" type="email" name="email" required autofocus>
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">{{ __('Password') }}</label>
-                <input id="password" class="form-control" type="password" name="password" required>
-            </div>
-            <div class="d-flex justify-content-end">
-                <button class="btn btn-primary" type="submit">{{ __('Log in') }}</button>
-            </div>
-        </form>
-    </div>
+<nav class="bg-white shadow p-4 flex justify-between items-center">
+    <div class="text-2xl font-bold text-indigo-600">tk</div>
+</nav>
+<div class="max-w-md mx-auto mt-10 bg-white p-6 rounded shadow">
+    <h2 class="text-xl mb-4 font-semibold">{{ __('Login') }}</h2>
+    @if($errors->any())
+        <div class="bg-red-100 text-red-700 p-2 mb-4 rounded">
+            <ul class="list-disc list-inside">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <form method="POST" action="{{ route('admin.login') }}" class="space-y-4">
+        @csrf
+        <input type="email" name="email" placeholder="Email" class="w-full border px-3 py-2 rounded" required>
+        <input type="password" name="password" placeholder="Password" class="w-full border px-3 py-2 rounded" required>
+        <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded">{{ __('Log in') }}</button>
+    </form>
 </div>
 @endsection
-
