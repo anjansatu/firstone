@@ -11,6 +11,20 @@ const podcasts = [
   { name: 'Business Buzz', duration: '50 mins', category: 'Finance', latest: 'Ep 30: Market Trends', avg: '48 mins' }
 ];
 
+  const routes = {
+    '/': 'index.html',
+    '/admin': 'admin.html',
+    '/dashboard': 'dashboard.html'
+  };
+
+  const server = http.createServer((req, res) => {
+    if (req.url === '/api/podcasts') {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify(podcasts));
+    }
+
+    const filePath = path.join(publicDir, routes[req.url] || req.url);
+    fs.readFile(filePath, (err, content) => {
 const server = http.createServer((req, res) => {
   if (req.url === '/api/podcasts') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -32,6 +46,9 @@ const server = http.createServer((req, res) => {
   });
 });
 
+  server.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
+  });
 server.listen(PORT, () => {
   console.log(`Admin panel available at http://localhost:${PORT}`);
 });
