@@ -28,8 +28,6 @@ Route::prefix('admin')->group(function () {
     Route::post('/logout', [AdminController::class, 'logout'])->name('admin.logout');
 });
 
-Route::get('/', function () {
-    return ['Laravel' => app()->version()];
-});
+Route::view('/', 'welcome');
 
 require __DIR__.'/auth.php';
