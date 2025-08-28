@@ -1,50 +1,45 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Admin Dashboard') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-6 px-4 sm:px-6 lg:px-8 space-y-6">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-                <div class="text-sm text-gray-500 dark:text-gray-400">{{ __('Users') }}</div>
-                <div class="mt-2 text-2xl font-bold text-gray-800 dark:text-gray-100">1,200</div>
-            </div>
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-                <div class="text-sm text-gray-500 dark:text-gray-400">{{ __('Revenue') }}</div>
-                <div class="mt-2 text-2xl font-bold text-gray-800 dark:text-gray-100">$9,750</div>
-            </div>
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-                <div class="text-sm text-gray-500 dark:text-gray-400">{{ __('Orders') }}</div>
-                <div class="mt-2 text-2xl font-bold text-gray-800 dark:text-gray-100">320</div>
-            </div>
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-                <div class="text-sm text-gray-500 dark:text-gray-400">{{ __('Tickets') }}</div>
-                <div class="mt-2 text-2xl font-bold text-gray-800 dark:text-gray-100">24</div>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">{{ __('Analytics') }}</h3>
-                <div class="h-48 flex items-center justify-center text-gray-400 dark:text-gray-500">{{ __('Chart Placeholder') }}</div>
-            </div>
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">{{ __('Recent Activity') }}</h3>
-                <ul class="divide-y divide-gray-200 dark:divide-gray-700">
-                    <li class="py-2 text-gray-600 dark:text-gray-300">{{ __('No recent activity.') }}</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">{{ __('Quick Actions') }}</h3>
-            <div class="flex space-x-4">
-                <a href="#" class="px-4 py-2 bg-indigo-600 text-white rounded-md">{{ __('Add User') }}</a>
-                <a href="#" class="px-4 py-2 bg-green-600 text-white rounded-md">{{ __('Generate Report') }}</a>
-                <a href='{{ route('admin.profile') }}' class='px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-md'>{{ __('View Profile') }}</a>
-            </div>
-        </div>
+@extends('layouts.admin')
+@section('title', 'Admin Dashboard')
+@section('content')
+<div class="max-w-6xl mx-auto bg-white p-6 rounded-lg shadow">
+    <h1 class="text-3xl font-bold mb-6 text-indigo-700">Admin Dashboard</h1>
+    <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-indigo-50">
+                <tr>
+                    <th class="px-4 py-2 text-left text-xs font-medium text-indigo-600 uppercase tracking-wider">
+                        Podcast Name
+                    </th>
+                    <th class="px-4 py-2 text-left text-xs font-medium text-indigo-600 uppercase tracking-wider">
+                        Duration
+                    </th>
+                    <th class="px-4 py-2 text-left text-xs font-medium text-indigo-600 uppercase tracking-wider">
+                        Category
+                    </th>
+                    <th class="px-4 py-2 text-left text-xs font-medium text-indigo-600 uppercase tracking-wider">
+                        Latest Episode
+                    </th>
+                    <th class="px-4 py-2 text-left text-xs font-medium text-indigo-600 uppercase tracking-wider">
+                        Average Duration
+                    </th>
+                    <th class="px-4 py-2 text-left text-xs font-medium text-indigo-600 uppercase tracking-wider">
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                @foreach($podcasts as $podcast)
+                <tr>
+                    <td class="px-4 py-2 whitespace-nowrap">{{ $podcast['name'] }}</td>
+                    <td class="px-4 py-2">{{ $podcast['duration'] }}</td>
+                    <td class="px-4 py-2">{{ $podcast['category'] }}</td>
+                    <td class="px-4 py-2">{{ $podcast['latest'] }}</td>
+                    <td class="px-4 py-2">{{ $podcast['average'] }}</td>
+                    <td class="px-4 py-2"><a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a></td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
-</x-app-layout>
+</div>
+@endsection
