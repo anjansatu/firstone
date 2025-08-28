@@ -15,13 +15,41 @@ class AdminController extends Controller
     }
 
     /**
+     * Show the admin registration form.
+     */
+    public function showRegister()
+    {
+        return view('admin.register');
+    }
+
+    /**
+     * Handle an incoming admin registration request.
+     */
+    public function register(Request $request)
+    {
+        $validated = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        ]);
+
+        $request->session()->put('admin_credentials', $validated);
+
+        return redirect()->route('admin.login')->with('status', 'Registration successful. Please log in.');
+    }
+
+    /**
      * Handle an incoming admin authentication request.
      */
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
 
-        if ($credentials['email'] === 'admin@email.com' && $credentials['password'] === '123456') {
+        $admin = $request->session()->get('admin_credentials', [
+            'email' => 'admin@email.com',
+            'password' => '123456',
+        ]);
+
+        if ($credentials['email'] === $admin['email'] && $credentials['password'] === $admin['password']) {
             $request->session()->put('admin_authenticated', true);
             return redirect()->route('admin.dashboard');
         }

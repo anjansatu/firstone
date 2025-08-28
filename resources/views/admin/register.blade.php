@@ -1,5 +1,5 @@
 @extends('layouts.front')
-@section('title','Admin Login')
+@section('title','Admin Register')
 
 @push('styles')
 <link rel="stylesheet" href="{{ asset('assets/css/auth.css') }}">
@@ -8,7 +8,7 @@
 @section('content')
 <div class="container">
     <div class="form-container">
-        <h2 class="mb-4 text-center">Admin Login</h2>
+        <h2 class="mb-4 text-center">Admin Register</h2>
 
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -20,7 +20,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ url('/admin/login') }}">
+        <form method="POST" action="{{ url('/admin/register') }}">
             @csrf
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
@@ -31,7 +31,7 @@
                 <input id="password" class="form-control" type="password" name="password" required>
             </div>
             <div class="d-flex justify-content-end">
-                <button class="btn btn-primary" type="submit">Log in</button>
+                <button class="btn btn-primary" type="submit">Register</button>
             </div>
         </form>
     </div>
