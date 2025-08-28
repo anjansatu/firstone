@@ -46,7 +46,7 @@ class AdminController extends Controller
 
         $admin = $request->session()->get('admin_credentials', [
             'email' => 'admin@email.com',
-            'password' => '123456',
+            'password' => '12345678',
         ]);
 
         if ($credentials['email'] === $admin['email'] && $credentials['password'] === $admin['password']) {

@@ -31,6 +31,10 @@
                 <input id="email" class="form-control" type="email" name="email" value="{{ old('email') }}" required>
             </div>
             <div class="mb-3">
+                <label for="phone" class="form-label">Phone</label>
+                <input id="phone" class="form-control" type="text" name="phone" value="{{ old('phone') }}" required>
+            </div>
+            <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
                 <input id="password" class="form-control" type="password" name="password" required autocomplete="new-password">
             </div>
