@@ -14,20 +14,28 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
-        <div class="min-h-screen bg-white/60 backdrop-blur">
+        <div class="min-h-screen bg-white/60 dark:bg-gray-900/60 backdrop-blur">
             @include('layouts.navigation')
 
-            <!-- Page Heading -->
-            <header class="bg-white/70 shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            </header>
+            <div class="flex">
+                @if(request()->routeIs('admin.*'))
+                    @include('layouts.sidebar')
+                @endif
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+                <div class="flex-1">
+                    <!-- Page Heading -->
+                    <header class="bg-white/70 dark:bg-gray-800 shadow">
+                        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                            {{ $header }}
+                        </div>
+                    </header>
+
+                    <!-- Page Content -->
+                    <main>
+                        {{ $slot }}
+                    </main>
+                </div>
+            </div>
         </div>
     </body>
 </html>
