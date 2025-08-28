@@ -1,0 +1,16 @@
+{
+    "Admin Login": "অ্যাডমিন লগইন",
+    "Email": "ইমেইল",
+    "Password": "পাসওয়ার্ড",
+    "Log in": "লগইন",
+    "Admin Register": "অ্যাডমিন রেজিস্টার",
+    "Register": "রেজিস্টার",
+    "Admin Dashboard": "অ্যাডমিন ড্যাশবোর্ড",
+    "You're logged in as admin!": "আপনি অ্যাডমিন হিসেবে লগইন করেছেন!",
+    "View Profile": "প্রোফাইল দেখুন",
+    "Admin Profile": "অ্যাডমিন প্রোফাইল",
+    "Dashboard": "ড্যাশবোর্ড",
+    "Log Out": "লগ আউট",
+    "Registration successful. Please log in.": "রেজিস্ট্রেশন সফল হয়েছে। লগইন করুন।",
+    "Invalid credentials.": "ভুল তথ্য প্রদান করা হয়েছে।"
+}

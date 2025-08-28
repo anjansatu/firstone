@@ -34,7 +34,7 @@ class AdminController extends Controller
 
         $request->session()->put('admin_credentials', $validated);
 
-        return redirect()->route('admin.login')->with('status', 'Registration successful. Please log in.');
+        return redirect()->route('admin.login')->with('status', __('Registration successful. Please log in.'));
     }
 
     /**
@@ -55,7 +55,7 @@ class AdminController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'Invalid credentials.',
+            'email' => __('Invalid credentials.'),
         ]);
     }
 
@@ -69,6 +69,22 @@ class AdminController extends Controller
         }
 
         return view('admin.dashboard');
+    }
+
+    /**
+     * Display the admin profile if authenticated.
+     */
+    public function profile(Request $request)
+    {
+        if (!$request->session()->get('admin_authenticated')) {
+            return redirect()->route('admin.login');
+        }
+
+        $admin = $request->session()->get('admin_credentials', [
+            'email' => 'admin@email.com',
+        ]);
+
+        return view('admin.profile', ['admin' => $admin]);
     }
 
     /**
