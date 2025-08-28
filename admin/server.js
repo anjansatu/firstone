@@ -25,6 +25,14 @@ const podcasts = [
 
     const filePath = path.join(publicDir, routes[req.url] || req.url);
     fs.readFile(filePath, (err, content) => {
+const server = http.createServer((req, res) => {
+  if (req.url === '/api/podcasts') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    return res.end(JSON.stringify(podcasts));
+  }
+
+  const filePath = path.join(publicDir, req.url === '/' ? 'index.html' : req.url);
+  fs.readFile(filePath, (err, content) => {
     if (err) {
       res.writeHead(404, { 'Content-Type': 'text/plain' });
       res.end('Not Found');
@@ -41,3 +49,6 @@ const podcasts = [
   server.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
   });
+server.listen(PORT, () => {
+  console.log(`Admin panel available at http://localhost:${PORT}`);
+});
