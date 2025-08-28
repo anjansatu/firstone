@@ -32,6 +32,6 @@ Route::prefix('admin')->group(function () {
 
 Route::get('/lang/{locale}', [LanguageController::class, 'switch'])->name('lang.switch');
 
-Route::view('/', 'welcome');
+Route::view('/', 'home');
 
 require __DIR__.'/auth.php';
