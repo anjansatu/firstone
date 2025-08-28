@@ -95,4 +95,40 @@ class AdminController extends Controller
         $request->session()->forget('admin_authenticated');
         return redirect()->route('admin.login');
     }
+
+    /**
+     * Display the admin users page if authenticated.
+     */
+    public function users(Request $request)
+    {
+        if (!$request->session()->get('admin_authenticated')) {
+            return redirect()->route('admin.login');
+        }
+
+        return view('admin.users');
+    }
+
+    /**
+     * Display the admin analytics page if authenticated.
+     */
+    public function analytics(Request $request)
+    {
+        if (!$request->session()->get('admin_authenticated')) {
+            return redirect()->route('admin.login');
+        }
+
+        return view('admin.analytics');
+    }
+
+    /**
+     * Display the admin settings page if authenticated.
+     */
+    public function settings(Request $request)
+    {
+        if (!$request->session()->get('admin_authenticated')) {
+            return redirect()->route('admin.login');
+        }
+
+        return view('admin.settings');
+    }
 }
