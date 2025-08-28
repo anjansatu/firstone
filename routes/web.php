@@ -25,18 +25,13 @@ Route::get('/dashboard', function () {
 Route::prefix('admin')->group(function () {
     Route::get('/login', [AdminController::class, 'showLogin'])->name('admin.login');
     Route::post('/login', [AdminController::class, 'login']);
-    Route::get('/register', [AdminController::class, 'showRegister'])->name('admin.register');
-    Route::post('/register', [AdminController::class, 'register']);
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/profile', [AdminController::class, 'profile'])->name('admin.profile');
-    Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
-    Route::get('/analytics', [AdminController::class, 'analytics'])->name('admin.analytics');
-    Route::get('/settings', [AdminController::class, 'settings'])->name('admin.settings');
     Route::post('/logout', [AdminController::class, 'logout'])->name('admin.logout');
 });
 
 Route::get('/lang/{locale}', [LanguageController::class, 'switch'])->name('lang.switch');
 
-Route::view('/', 'welcome');
+Route::view('/', 'home');
 
 require __DIR__.'/auth.php';

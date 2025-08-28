@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
     /**
-     * Show the admin login form.
+     * Display the admin login form.
      */
     public function showLogin()
     {
@@ -15,42 +15,20 @@ class AdminController extends Controller
     }
 
     /**
-     * Show the admin registration form.
-     */
-    public function showRegister()
-    {
-        return view('admin.register');
-    }
-
-    /**
-     * Handle an incoming admin registration request.
-     */
-    public function register(Request $request)
-    {
-        $validated = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|min:6',
-        ]);
-
-        $request->session()->put('admin_credentials', $validated);
-
-        return redirect()->route('admin.login')->with('status', __('Registration successful. Please log in.'));
-    }
-
-    /**
-     * Handle an incoming admin authentication request.
+     * Handle the admin authentication request.
      */
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
-
-        $admin = $request->session()->get('admin_credentials', [
-            'email' => 'admin@email.com',
-            'password' => '12345678',
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
         ]);
 
-        if ($credentials['email'] === $admin['email'] && $credentials['password'] === $admin['password']) {
-            $request->session()->put('admin_authenticated', true);
+        $adminEmail = 'admin@email.com';
+        $adminPassword = '12345678';
+
+        if ($credentials['email'] === $adminEmail && $credentials['password'] === $adminPassword) {
+            $request->session()->put('admin', ['email' => $credentials['email']]);
             return redirect()->route('admin.dashboard');
         }
 
@@ -60,29 +38,33 @@ class AdminController extends Controller
     }
 
     /**
-     * Display the admin dashboard if authenticated.
+     * Show the admin dashboard with sample podcast data.
      */
     public function dashboard(Request $request)
     {
-        if (!$request->session()->get('admin_authenticated')) {
+        if (!$request->session()->has('admin')) {
             return redirect()->route('admin.login');
         }
 
-        return view('admin.dashboard');
+        $podcasts = [
+            ['name' => 'Mindful Wanderers', 'duration' => '45 mins', 'category' => 'Travel', 'latest' => 'Ep 120: The Journey Within', 'average' => '40 mins'],
+            ['name' => 'Science Explained', 'duration' => '30 mins', 'category' => 'Science', 'latest' => 'Ep 45: Quantum Realities', 'average' => '32 mins'],
+            ['name' => 'Business Buzz', 'duration' => '50 mins', 'category' => 'Finance', 'latest' => 'Ep 30: Market Trends', 'average' => '48 mins'],
+        ];
+
+        return view('admin.dashboard', ['podcasts' => $podcasts]);
     }
 
     /**
-     * Display the admin profile if authenticated.
+     * Display the admin profile.
      */
     public function profile(Request $request)
     {
-        if (!$request->session()->get('admin_authenticated')) {
+        if (!$request->session()->has('admin')) {
             return redirect()->route('admin.login');
         }
 
-        $admin = $request->session()->get('admin_credentials', [
-            'email' => 'admin@email.com',
-        ]);
+        $admin = $request->session()->get('admin');
 
         return view('admin.profile', ['admin' => $admin]);
     }
@@ -92,43 +74,8 @@ class AdminController extends Controller
      */
     public function logout(Request $request)
     {
-        $request->session()->forget('admin_authenticated');
+        $request->session()->forget('admin');
         return redirect()->route('admin.login');
     }
-
-    /**
-     * Display the admin users page if authenticated.
-     */
-    public function users(Request $request)
-    {
-        if (!$request->session()->get('admin_authenticated')) {
-            return redirect()->route('admin.login');
-        }
-
-        return view('admin.users');
-    }
-
-    /**
-     * Display the admin analytics page if authenticated.
-     */
-    public function analytics(Request $request)
-    {
-        if (!$request->session()->get('admin_authenticated')) {
-            return redirect()->route('admin.login');
-        }
-
-        return view('admin.analytics');
-    }
-
-    /**
-     * Display the admin settings page if authenticated.
-     */
-    public function settings(Request $request)
-    {
-        if (!$request->session()->get('admin_authenticated')) {
-            return redirect()->route('admin.login');
-        }
-
-        return view('admin.settings');
-    }
 }
+
