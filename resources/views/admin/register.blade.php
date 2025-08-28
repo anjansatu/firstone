@@ -1,5 +1,5 @@
 @extends('layouts.front')
-@section('title','Admin Register')
+@section('title', __('Admin Register'))
 
 @push('styles')
 <link rel="stylesheet" href="{{ asset('assets/css/auth.css') }}">
@@ -8,7 +8,7 @@
 @section('content')
 <div class="container">
     <div class="form-container">
-        <h2 class="mb-4 text-center">Admin Register</h2>
+        <h2 class="mb-4 text-center">{{ __('Admin Register') }}</h2>
 
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -23,15 +23,15 @@
         <form method="POST" action="{{ url('/admin/register') }}">
             @csrf
             <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
+                <label for="email" class="form-label">{{ __('Email') }}</label>
                 <input id="email" class="form-control" type="email" name="email" required autofocus>
             </div>
             <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
+                <label for="password" class="form-label">{{ __('Password') }}</label>
                 <input id="password" class="form-control" type="password" name="password" required>
             </div>
             <div class="d-flex justify-content-end">
-                <button class="btn btn-primary" type="submit">Register</button>
+                <button class="btn btn-primary" type="submit">{{ __('Register') }}</button>
             </div>
         </form>
     </div>

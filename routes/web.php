@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\LanguageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,8 +28,11 @@ Route::prefix('admin')->group(function () {
     Route::get('/register', [AdminController::class, 'showRegister'])->name('admin.register');
     Route::post('/register', [AdminController::class, 'register']);
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/profile', [AdminController::class, 'profile'])->name('admin.profile');
     Route::post('/logout', [AdminController::class, 'logout'])->name('admin.logout');
 });
+
+Route::get('/lang/{locale}', [LanguageController::class, 'switch'])->name('lang.switch');
 
 Route::view('/', 'welcome');
 
