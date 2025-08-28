@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
     @stack('styles')
 </head>
-<body>
+<body class="@yield('body-class')">
     <div class="p-4 text-right">
         <x-lang-switcher class="inline-flex" />
     </div>
